@@ -41,7 +41,7 @@ Page({
         this.classify.queryAsync(params)
         .then(res => {
             const data = res.data
-            console.log(data)
+          
             if (data.meta.code == 0) {
                 classify.items = [...classify.items, ...data.data.items]
                 classify.paginate = data.data.paginate

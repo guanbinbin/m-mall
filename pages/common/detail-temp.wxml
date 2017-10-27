@@ -1,0 +1,55 @@
+<view  class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<view  animation="{{animationData}}"  
+  class="catalog_area bg_fff {{isHidden == 1 ? 'display-block':'display-none'}}">
+  
+  <view class="catalog_title">
+      <image class="thumbnails" src="{{flowerImgSelect}}" mode="aspectFill"></image>
+      <view class="info_tip">
+        <view class="good_dis_price">¥{{goodPrice}}</view>  
+        <view class="choosed_catalog text-hidden">{{flowerNameSelect}}</view>
+      </view> 
+      <image class="cancel" bindtap="hideModal" src="../../image/delete.png"></image>       
+  </view>
+    
+  <scroll-view  scroll-y="true" style="height: 640rpx;margin-top:175rpx">
+   
+    <view class="info_choose">
+        <view class="catalog_name">花型</view>
+
+        <view class="catalog_items display-flex-row" >
+          <block wx:for="{{goodflowers}}">
+            <text data-img="{{globalData.root}}{{item.flower_image}}" data-select="{{item.flower_id}}"  data-flower-name="{{item.flower_name}}"
+                class="{{item.flower_id == flowerSelect ? 'active':''}} catalog_item" 
+                bindtap="chooseFlower">{{item.flower_name}}
+            </text>
+          </block>
+        </view>   
+        
+           
+        <view class="borderTop"></view>
+        <view class="catalog_count display-flex-row" >
+          <view class="catalog_name">
+            购买数量
+          </view>
+          <view class="count_control display-flex-row">
+            <span class="item_reduce item_btn" bindtap="{{goodNum>1?'goodReduce':''}}">-</span>
+	        	<span class="item_num"  bindtap="carRemove">{{goodNum}}</span>
+	        	<span class="item_add item_btn" bindtap="goodAdd">+</span>
+          </view>  	
+        </view>  
+         <view class="borderTop"></view>
+
+        
+
+    </view>
+
+  </scroll-view>
+
+
+    <view class="btn_hidden"></view>
+    <view class="btn_area display-flex-row" >
+      <view bindtap="addCart" class="goods_half_half bg_09bb07 color_fff">加入购物车</view>
+      <view bindtap="saveOrder" class="goods_half_half bg_ff6700 color_fff">立即购买</view>
+    </view>
+
+</view>

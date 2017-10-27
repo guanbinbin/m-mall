@@ -14,6 +14,7 @@ Page({
     prompt: {
       hidden: !0,
     },
+    classifyNum:4,
   },
   swiperchange(e) {
     // console.log(e.detail.current)
@@ -23,7 +24,7 @@ Page({
     this.goods = App.HttpResource('/goods/:id', { id: '@id' })
     this.classify = App.HttpResource('/classify/:id', { id: '@id' })
 
-    this.getBanners()
+    //this.getBanners()
     this.getClassify()
   },
   initData() {
@@ -55,7 +56,8 @@ Page({
     // App.HttpService.getBanners({is_show: !0})
     this.banner.queryAsync({ is_show: !0 })
       .then(res => {
-        const data = res.data
+        const data = res.data;
+        console.log(data);
         if (data.meta.code == 0) {
           data.data.items.forEach(n => n.path = App.renderImage(n.images[0].path))
           this.setData({
@@ -73,9 +75,9 @@ Page({
     // })
     this.classify.queryAsync({
       page: 1,
-      limit: 4,
-    })
-      .then(res => {
+      limit: this.data.classifyNum,
+      is_show: true,
+    }).then(res => {
         const data = res.data
         console.log(data)
         if (data.meta.code == 0) {

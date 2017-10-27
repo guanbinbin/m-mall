@@ -10,7 +10,11 @@ Page({
         current: 0,
         goods: {
             item: {}
-        }
+        },
+        isHidden: 0,
+        showModalStatus: false,//显示遮罩
+        goodNum: 1,//商品数量
+        select: 0,//商品详情、参数切换
     },
     swiperchange(e) {
         this.setData({
@@ -68,5 +72,59 @@ Page({
                 })
         	}
         })
+    },
+    /*************************************************/
+    /**点击选择花色按钮、显示页面 */
+    viewFlowerArea: function (data) {
+      var that = this;
+      var animation = wx.createAnimation({//动画
+        duration: 500,//动画持续时间
+        timingFunction: 'linear',//动画的效果 动画从头到尾的速度是相同的
+      })
+      animation.translateY(0).step()//在Y轴偏移tx，单位px
+
+      this.animation = animation
+      that.setData({
+        showModalStatus: true,//显示遮罩       
+        animationData: animation.export()
+      })
+      that.setData({//把选中值，放入判断值中
+        isHidden: 1,
+      })
+    },
+    /**隐藏选择花色区块 */
+    hideModal: function (data) {
+
+      var that = this;
+      that.setData({//把选中值，放入判断值中
+        showModalStatus: false,//显示遮罩       
+        isHidden: 0,
+      })
+
+    },
+    goodAdd: function (data) {
+
+      var that = this;
+      var goodCount = that.data.goodNum + 1;
+      that.setData({//商品数量+1
+        goodNum: goodCount
+      })
+
+    },
+    goodReduce: function (data) {
+
+      var that = this;
+      var goodCount = that.data.goodNum - 1;
+      that.setData({//商品数量+1
+        goodNum: goodCount
+      })
+
+    },
+    /**商品详情、参数切换 */
+    changeArea: function (data) {
+      var that = this;
+      var area = data.currentTarget.dataset.area;
+      that.setData({ "select": area });
+
     },
 })
