@@ -77,6 +77,7 @@ Page({
       page: 1,
       limit: this.data.classifyNum,
       is_show: true,
+      sort: 1,
     }).then(res => {
         const data = res.data
         console.log(data)
